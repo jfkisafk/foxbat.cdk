@@ -20,8 +20,7 @@
     "lint": "eslint \"./{src,test,bin}/**/*.{ts,tsx}\"",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
-    "cdk": "cdk",
-    "prepare": "husky install"
+    "cdk": "cdk"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",

@@ -115,9 +115,9 @@ describe('FoxbatApiStack', () => {
         Properties: Match.objectLike({
           MethodSettings: [
             {
-              DataTraceEnabled: false,
+              DataTraceEnabled: true,
               HttpMethod: '*',
-              LoggingLevel: 'ERROR',
+              LoggingLevel: 'INFO',
               MetricsEnabled: true,
               ResourcePath: '/*',
               ThrottlingBurstLimit: 500,
