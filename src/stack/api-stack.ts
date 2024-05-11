@@ -142,7 +142,7 @@ export class FoxbatApiStack extends Stack {
       endpointTypes: [EndpointType.REGIONAL],
       deployOptions: {
         stageName,
-        variables: { proxyTable: proxyTable.tableName },
+        variables: { proxyTableName: proxyTable.tableName },
         tracingEnabled: true,
         metricsEnabled: true,
         loggingLevel: MethodLoggingLevel.INFO,
