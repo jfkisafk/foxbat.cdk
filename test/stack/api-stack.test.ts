@@ -101,7 +101,7 @@ describe('FoxbatApiStack', () => {
       this.template.hasResourceProperties('AWS::Logs::LogGroup', { LogGroupName: 'foxbat/api/access', RetentionInDays: 60 });
       this.template.hasResource('AWS::ApiGateway::RestApi', {
         Properties: Match.objectLike({
-          Body: Match.objectLike({ openapi: '3.1.0', info: { title: 'Foxbat', version: '2018-05-10' } }),
+          Body: Match.objectLike({ openapi: '3.0.2', info: { title: 'Foxbat', version: '2018-05-10' } }),
           DisableExecuteApiEndpoint: true,
           EndpointConfiguration: { Types: ['REGIONAL'] },
           Name: 'Foxbat'
