@@ -1,5 +1,5 @@
 import { App } from 'aws-cdk-lib';
-import { Match, Template } from 'aws-cdk-lib/assertions';
+import { Annotations, Match, Template } from 'aws-cdk-lib/assertions';
 import { Fact, FactName } from 'aws-cdk-lib/region-info';
 
 import { FoxbatApiStack } from '../../src/stack/api-stack';
@@ -166,6 +166,9 @@ describe('FoxbatApiStack', () => {
 
   it('expect resources to be generated', () => {
     const template = new FoxbatApiTemplate(stack);
+    const annotations = Annotations.fromStack(stack);
+    expect(annotations.findWarning('*', Match.stringLikeRegexp('AwsSolutions-.*'))).toHaveLength(0);
+    expect(annotations.findError('*', Match.stringLikeRegexp('AwsSolutions-.*'))).toHaveLength(0);
 
     template.hasIntegrationResources();
     template.hasApiResources();
