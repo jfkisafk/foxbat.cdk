@@ -1,6 +1,5 @@
 import { App } from 'aws-cdk-lib';
 import { Annotations, Match, Template } from 'aws-cdk-lib/assertions';
-import { Fact, FactName } from 'aws-cdk-lib/region-info';
 
 import { FoxbatApiStack } from '../../src/stack/api-stack';
 
@@ -57,9 +56,6 @@ describe('FoxbatApiStack', () => {
         '@aws-cdk/aws-ec2:ebsDefaultGp3Volume': true
       }
     });
-    ['apigateway.amazonaws.com', 'dynamodb.amazonaws.com', 'cloudwatch.amazonaws.com'].map(sp =>
-      Fact.register({ region: 'us-west-2', name: FactName.servicePrincipal(sp), value: sp })
-    );
     stack = new FoxbatApiStack(app, { env: { account: '0123456789', region: 'us-west-2' } });
   });
 

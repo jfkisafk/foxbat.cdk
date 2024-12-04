@@ -22,7 +22,6 @@ import {
   ObjectOwnership,
   StorageClass
 } from 'aws-cdk-lib/aws-s3';
-import { RegionInfo } from 'aws-cdk-lib/region-info';
 import { AwsSolutionsChecks, NagReportFormat, NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { readFileSync } from 'fs';
@@ -40,11 +39,10 @@ export class FoxbatApiStack extends Stack {
 
     Tags.of(this).add('stelo:app', 'foxbat');
     Tags.of(this).add('foxbat:entity', 'api');
-    const regionInfo = RegionInfo.get(this.region);
 
     const apiExecutionRole = new Role(this, 'ApiExecutionRole', {
       roleName: 'foxbat-api-execution-role',
-      assumedBy: new ServicePrincipal(regionInfo.servicePrincipal('apigateway.amazonaws.com') ?? ''),
+      assumedBy: new ServicePrincipal(ServicePrincipal.servicePrincipalName('apigateway.amazonaws.com')),
       description: 'Role to be assumed by API gateway for integration and authorizer flow.',
     });
     (apiExecutionRole.node.defaultChild as CfnResource).overrideLogicalId('ApiExecutionRole');
@@ -65,7 +63,7 @@ export class FoxbatApiStack extends Stack {
           'apigateway.amazonaws.com',
           'dynamodb.amazonaws.com',
           's3.amazonaws.com'
-        ].map(sp => new ServicePrincipal(regionInfo.servicePrincipal(sp) ?? '')),
+        ].map(sp => new ServicePrincipal(ServicePrincipal.servicePrincipalName(sp))),
       )
     );
 
@@ -199,7 +197,7 @@ export class FoxbatApiStack extends Stack {
 
     const apiCloudWatchRole = new Role(this, 'ApiCloudWatchRole', {
       roleName: 'foxbat-api-cloudwatch-role',
-      assumedBy: new ServicePrincipal(regionInfo.servicePrincipal('apigateway.amazonaws.com') ?? ''),
+      assumedBy: new ServicePrincipal(ServicePrincipal.servicePrincipalName('apigateway.amazonaws.com')),
       managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonAPIGatewayPushToCloudWatchLogs')]
     });
     NagSuppressions.addResourceSuppressions(apiCloudWatchRole, [{ id: 'AwsSolutions-IAM4', reason: 'Managed policies are fine' }]);
