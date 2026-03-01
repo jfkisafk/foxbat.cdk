@@ -25,7 +25,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
-    "@eslint/js": "^9.16.0",
+    "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.3.3",
     "aws-cdk": "^2.165.0",
